@@ -4,7 +4,7 @@
 
 Assets/Plugins      插件目录
 		-NGUI
-		-PureMvc
+		-PureMvc        其他消息机制 Advanced CSharp Messenger 未使用
 		
 		
 Assets/Scripts		游戏代码

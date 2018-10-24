@@ -1,0 +1,148 @@
+package com.sporger.server.proto.model; 
+import "model/ProtoBag.proto";  
+import "model/ProtoPlayer.proto";
+import "model/ProtoRunReport.proto";
+
+// 锦标赛
+message match_proceed_list
+{
+	required uint32 id = 1;// Id 
+	required uint32 crowd = 2;//观众
+    required uint32 tabId = 3;		   //  1.本周赛事  2.今日所有赛事 
+}
+
+ //请求锦标赛列表
+message req_match_proceed_list_in {  
+	
+} 
+//	  进行中的锦标赛
+message req_match_proceed_list_out {
+	repeated match_proceed_list matchProceedList = 1;//进行中的锦标赛
+}
+
+
+//请求进入锦标赛
+message req_enter_match_map_in
+{
+	required uint32 mapId = 1; //地图ID
+}
+
+
+message req_enter_match_map_out
+{
+	required uint32 mapId = 1; //地图ID
+    optional uint64 roomId = 2; //房间ID
+	optional uint32 distance = 3;//已经跑过的距离 
+}
+
+
+// 赛季信息
+message season_rank_info
+{
+	required uint32 seasonId = 1;// seasonId 
+	required uint32 place = 2;// 名次 
+	required uint32 integral = 3;// 积分 
+    required uint32 grade = 4;		   //本赛季我的段位
+}
+
+// 锦标赛赛季玩家排名信息
+message season_player_info
+{
+	required uint32 id = 1;// 排名
+	required player_simple_info playerInfo =2;//玩家信息
+	required uint32 grade = 3;// 段位
+	required uint32 currentIntegral = 4;// 当前赛季积分
+	required uint32 cityId = 5;// 城市
+}
+ //请求巅峰时刻
+message req_season_rank_list_in {  
+	
+} 
+//	  巅峰时刻
+message req_season_rank_list_out {
+	repeated season_player_info currentRank = 1;// 我的排名列表
+	repeated season_rank_info historySeason = 2;// 过往赛季
+	repeated season_player_info playerRank = 3;// 100强
+}
+
+ //请求赛季玩家排名信息
+message req_season_player_list_in {  
+	required uint32 seasonId = 1;// seasonId 
+} 
+//	  赛季玩家排名信息
+message req_season_player_list_out {
+	required season_rank_info seasonInfo = 1;//   
+	repeated season_player_info playerList = 2;//玩家列表
+}
+
+
+//  推送玩家有锦标赛要开始了
+message notify_have_match_start_out
+{  
+	required uint32 id = 1;//ID 
+}
+//  推送玩家新赛季要开始了
+message req_season_start_in
+{  
+
+}
+
+//  推送玩家新赛季要开始了
+message notify_season_start_out
+{  
+	required uint32 seasonId = 1;//ID 
+}
+ 
+ //  推送段位变化
+message notify_grade_change_out
+{  
+	required uint32 currentGrade =1 ;//最终段位
+	required bool isUp = 2;//是否是升级
+}
+ 
+  //请求当前赛季我的积分
+message req_season_integral_in {  
+} 
+//	  赛季玩家积分
+message req_season_integral_out {
+	required uint32 integral = 1; 
+}
+ 
+ 
+enum watch_match_result
+{
+	NOERROR = 0;//正常
+	NOBODY = 1;//没人
+	TIMEOUT = 2;//比赛关门
+}
+ 
+ message champion_curent_index
+{
+	required string nickName = 1;//昵称
+	required uint32 distance = 2;//跑步距离 ，单位米
+	required uint32 rank = 3;//排名
+	required string playerId = 4;//玩家id
+	required string nickIcon = 5;//玩家头像
+}
+//当前跑步实时信息，比如排名
+message notify_champion_curent_info_out
+{
+	repeated champion_curent_index curInfo = 1;//前三名信息
+	required uint32 playerCount = 2;//参赛人数
+	required uint32 audienceCount = 3;//观众人数
+}
+//锦标赛结算
+message notify_champion_gameover_out
+{
+	required run_report_in runInfo =1;//跑步数据
+	required bool isFinished= 2;//是否完赛
+}
+message champion_player_rank_info
+{
+	required uint32 rankId = 1;//排名
+	required string nickName =2;//玩家姓名
+	required uint32 sex = 3;//性别
+	required uint32 finishTime = 4;//完赛时间
+	required uint32 countryId = 5;//国家Id
+	required uint32 score = 6;//积分
+}

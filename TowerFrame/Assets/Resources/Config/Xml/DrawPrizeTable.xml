@@ -1,0 +1,12 @@
+<DrawPrizeTable>
+  <IData Id="100001" Icon="shelves1" NameID="20025" Type="1" Drawtype="1" Time="600" Number="5" Price="1000" Reward="1000001" />
+  <IData Id="100002" Icon="shelves2" NameID="20026" Type="2" Drawtype="1" Time="600" Number="5" Price="2000" Reward="1000002" />
+  <IData Id="100003" Icon="shelves3" NameID="20027" Type="3" Drawtype="1" Time="600" Number="5" Price="3000" Reward="1000003" />
+  <IData Id="100004" Icon="shelves4" NameID="20028" Type="4" Drawtype="1" Time="600" Number="5" Price="4000" Reward="1000004" />
+  <IData Id="100005" Icon="shelves5" NameID="20029" Type="5" Drawtype="1" Time="600" Number="5" Price="5000" Reward="1000005" />
+  <IData Id="200001" Icon="shelves1" NameID="20025" Type="1" Drawtype="2" Time="1800" Number="1" Price="100" Reward="2000001" />
+  <IData Id="200002" Icon="shelves2" NameID="20026" Type="2" Drawtype="2" Time="1800" Number="1" Price="200" Reward="2000002" />
+  <IData Id="200003" Icon="shelves3" NameID="20027" Type="3" Drawtype="2" Time="1800" Number="1" Price="300" Reward="2000003" />
+  <IData Id="200004" Icon="shelves4" NameID="20028" Type="4" Drawtype="2" Time="1800" Number="1" Price="400" Reward="2000004" />
+  <IData Id="200005" Icon="shelves5" NameID="20029" Type="5" Drawtype="2" Time="1800" Number="1" Price="500" Reward="2000005" />
+</DrawPrizeTable>

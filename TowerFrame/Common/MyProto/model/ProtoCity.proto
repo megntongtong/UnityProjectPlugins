@@ -1,0 +1,15 @@
+package com.sporger.server.proto.model; 
+import "model/ProtoMarathon.proto";
+import "model/ProtoChat.proto";
+//请求城镇消息（马拉松列表，关注跑者语音列表）
+message req_city_info_in
+{
+
+}
+
+message req_city_info_out
+{
+	repeated marathon_event_info list = 1;//主城界面显示的赛事列表
+	repeated voice_message_base_info messageList = 2;//关注跑者留言列表
+	optional voice_message_base_info runnerReply = 3;//跑者回复语音
+}

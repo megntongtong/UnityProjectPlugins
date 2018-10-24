@@ -1,0 +1,237 @@
+package com.sporger.server.proto.model;
+import "model/ProtoPlayer.proto";
+import "model/ProtoBag.proto";
+//彩虹跑玩家基本信息
+message rainbowrun_player_simple_info
+{
+	required player_simple_info playerInfo = 1;//玩家信息
+	required int32 colorId = 2;//颜色ID
+}
+
+//彩虹跑匹配
+message req_rainbowrun_matching_in
+{
+	required uint32 mapId = 1;//地图ID
+	required uint32 gameType =2;//比赛类型  1：团队  2：个人
+	required uint32	time =3;//时间 
+	required uint32 people =4;//人数	
+}
+
+message notify_rainbowrun_matching_out
+{
+	required uint64 matchingID = 1;//匹配线程ID
+}
+
+//返回彩虹跑匹配结果
+message notify_rainbowrun_matching_result_out
+{
+	required bool isSuc = 1;//是否成功 
+	repeated rainbowrun_player_simple_info playerList = 2;//人员列表，按跑道顺序排列
+	required uint32 mapId = 3;//地图ID
+}
+
+//取消彩虹跑匹配
+message req_rainbowrun_cancel_matching_in
+{
+	required uint64 matchingID = 1;//匹配线程ID
+}
+
+//变换跑道
+message req_rainbowrun_change_track_in
+{
+	required uint32 desTrack = 1;//要变换的跑道
+	required uint64 roomId = 2;//房间号
+}
+
+message req_rainbowrun_change_track_out
+{
+	required uint32 desTrack = 1;//要变换的跑道
+}
+
+//通知变换跑道
+message notify_rainbowrun_change_track_out
+{
+	required string playerId = 1;//玩家ID
+	required uint32 desTrack = 2;//要变换的跑道
+}
+//彩虹跑人物当前信息
+message rainbowrun_cur_player_info
+{
+	required string playerId = 1;//玩家ID
+	required int32 area = 2;//喷涂面积
+}
+
+//通知当前比赛信息,比如人物喷涂面积
+message notify_rainbowrun_current_info_out
+{
+	repeated rainbowrun_cur_player_info curPlayerInfo = 1;//人物当前信息
+}
+
+//结算信息
+message rainbow_game_result
+{
+	required string playerId = 1;//玩家ID
+	required int32 score = 2;//喷涂面积
+	repeated item_simple_info rewards = 3;//奖励
+}
+
+//团队结算结果
+message rainbow_team_result
+{
+	required int32 rank = 1;//团队排行
+	required int32 allScore = 2;//团队喷涂面积
+	repeated rainbow_game_result playerResult=3;//团队成员结果
+}
+
+//通知彩虹跑结束
+message notify_rainbowrun_gameover_out
+{
+	repeated rainbow_game_result singleRaceResult=1;//单人比赛排行
+	repeated rainbow_team_result teamRaceResult = 2;//团队比赛胜利排名
+}
+//比赛选手准备
+message req_rainbowrun_ready_in {
+    optional string captainId = 1; //队长（房主）ID
+}
+//通知有玩家确认
+message notify_rainbowrun_ready_out
+{
+	required string playerId =1;//玩家ID
+}
+
+//通知加载彩虹跑场景
+message notify_rainbowrun_load_scene_out
+{
+	required uint64 roomID = 1;//房间ID
+	required string channelId = 2;//语音聊天房间id
+}
+
+
+
+//***********************************************************************
+//匹配信息
+message room_info
+{
+	required int64 matchingID = 1;//匹配ID
+	optional uint32 gameType =2;//比赛类型  1：团队  2：个人
+	optional uint32	time =3;//时间 
+	optional uint32 people =4;//人数	
+	required string playerId =5;//匹配房拥有者
+	optional uint32 mapId =6;//对应玩法的地图ID
+}
+  
+ //匹配玩家信息
+message room_player_info
+{
+	required player_simple_info playerInfo = 1;// 玩家信息
+	required int32 posId = 2;//位置编号
+	optional uint32 teamId = 3;//队伍编号
+}
+  
+  //精灵按钮
+message function_type_info
+{
+	required uint32 id = 1;//ID
+	optional uint32 btnName =2;//按钮名字ID  （查表）
+	optional FunctionType	functionType =3;//按钮类型
+	required bool agree = 4;//是否是同意按钮
+}
+ //按钮类型
+enum FunctionType 
+{ 
+	NONE = 0;//拒绝
+    RAINBOWRUN = 1; //彩虹跑
+	PVP = 2;//PVP
+}
+  
+  
+
+//邀请好友
+message req_invite_friend_in
+{
+	required int64 matchingID = 1;//匹配ID
+	repeated string playerList = 2;//人员列表
+}
+
+//通知好友收到邀请
+message notify_have_invite_friend_out
+{
+	required int64 matchingID = 1;//匹配ID
+	required player_simple_info playerInfo =2;//邀请人
+	required string title =3;//玩法名称
+	required uint32	time =4;//等待时间---秒 
+	required bool showButton = 5;//是否显示按钮
+	repeated function_type_info functionList = 6;//按钮列表
+}
+
+//好友同意
+message req_agree_invite_in
+{
+	required int64 matchingID = 1;//匹配ID
+	required bool agree = 2;//是否同意
+	required string playerId =3;//邀请人
+}
+
+//通知进入匹配房间
+message notify_enter_invite_room_out
+{
+	required room_info roomInfo = 1;//匹配信息 
+	required FunctionType functionType = 2;//按钮
+}
+
+//通知返回匹配房间
+message notify_back_invite_room_out
+{
+	required room_info roomInfo = 1;//匹配信息
+	repeated room_player_info playerList = 2;//人员列表
+}
+
+
+
+//通知所有玩家有玩家进入匹配
+message notify_invite_friend_enter_out
+{
+	repeated room_player_info playerList = 1;//人员列表
+}
+
+
+//彩虹跑分配匹配
+message req_rainbowrun_create_room_in
+{
+	required int32 id = 1;//ID
+}
+//彩虹跑分配匹配回调
+message req_rainbowrun_create_room_out
+{
+	required room_info roomInfo = 1;//房间信息
+}
+
+ //房主修改房间设置
+message req_setting_room_in
+{
+	required room_info roomInfo = 1;//匹配信息
+}
+
+//通知所有玩家房主修改房间设置
+message notify_setting_room_out
+{
+	required room_info roomInfo = 1;//匹配信息
+}
+
+//通知当前跑道喷涂面积最大的颜色
+message notify_track_max_color_out
+{
+	repeated int32 trackColorId = 1;//颜色ID对应RainbowGroceriesTable
+}
+
+
+
+
+
+
+
+
+
+
+
+

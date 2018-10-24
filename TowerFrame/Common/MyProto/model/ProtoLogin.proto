@@ -1,0 +1,43 @@
+package com.sporger.server.proto.model;
+import "model/ProtoCommon.proto";  
+//登录
+message login_validate_in
+{  
+	required string session = 1;//会话控制
+}
+
+message login_validate_out
+{
+	required int32 accountLv = 1;//帐号等级 1普通玩家2游戏管理者3游戏开发者
+	required bool hasCharacter = 2;//是否创建过角色 
+	repeated PBPlatformType bindPlatform = 3;//绑定的平台
+}
+
+//断线重线验证
+message login_validate_reconnect_in
+{  
+	required string session = 1;//会话控制
+}
+
+message login_validate_reconnect_out
+{  
+	required bool isSuccess = 1;//是否成功
+}
+
+//绑定帐号
+message req_bind_account_in
+{
+	required PBPlatformType bindPlatform = 1;//绑定的平台
+	required string id = 2;//要绑定的ID
+}
+
+message  req_bind_account_out
+{
+	required bool isSuccess = 1;//是否成功
+}
+
+message account_save_info
+{
+    required int32 platformType = 1;
+    required string accountName = 2;
+}

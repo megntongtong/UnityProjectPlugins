@@ -1,0 +1,185 @@
+package com.sporger.server.proto.model; 
+import "model/ProtoPlayer.proto";
+enum cheer_goods_status
+{
+	DONTALLOW = 0;//条件未达到，不可以领取
+	ALLOWED = 1;//可以领取
+	HAVEGOT = 2;//已经领取
+	CHEERFAILURE = 3;//助力失败
+	NOLEFT = 4;//抢光了
+}
+
+message cheer_base_info
+{
+	required uint32 cheerId =1;//助力Id
+	required string iconUrl = 2;//网址 或者是图片名
+	required uint64 startTime =3;//开始时间
+	required uint64 endTime = 4;//结束时间
+	required uint32 itemLeftCount =5;//奖品数量
+	required string miniPath = 6;//小程序路径
+	required string title =7;//分享标题
+	required string imageUrl = 8;//分享图片
+	required uint32 miniProgramType = 9;//小程序类型 0-正式，1-开发，2-体验
+	required cheer_goods_status itemSate = 10;//奖励状态 
+	required uint32 needCheerPoint = 11;//需要助力值
+}
+
+//请求助力列表
+message req_cheer_list_out
+{
+	repeated cheer_base_info infoList = 1;
+}
+
+//请求获取助力奖励
+message req_get_cheer_goods_in
+{
+	required uint32 cheerId =1;//助力Id
+	required string name =2;//收件人姓名
+	required string PhoneNum=3;//收件人手机号
+	required string addr =4;//收件人地址
+}
+
+enum get_cheer_goods_result
+{
+	GETFAILURE = 0;//领取失败，未达到领取条件
+	GETSUCCESS = 1;//领取成功
+	CHEERINVALID = 3;//活动无效
+}
+
+//请求获取助力奖励
+message req_get_cheer_goods_out
+{
+	required get_cheer_goods_result result=1;//领取结果
+	required uint32 cheerId =2;//助力Id
+}
+
+//请求删除助力
+message req_delete_cheer_in
+{
+	required uint32 cheerId =1;//助力Id
+}
+
+message req_delete_cheer_out
+{
+	required uint32 cheerId =1;//助力Id
+}
+
+
+//收到助力提醒类型
+enum cheer_remind_type
+{
+	RecieveCheer =1;//收到助力
+	CheerFinish =2;//助力完成
+	CheerProgress = 3;//助力进度
+}
+message cheer_remind_info
+{
+	required cheer_remind_type type = 1;//类型
+	required uint32 voiceId =2;//语音id，前两种类型填0
+	required string nickName = 3;//加油用户姓名
+}
+
+//通知助力语音提示
+message notify_cheer_remind
+{
+	repeated cheer_remind_info remind = 1;//语音Id
+}
+
+
+//其他玩家助力基本信息
+message other_cheer_info
+{
+	required player_simple_info info = 1;//玩家信息
+	required uint32 marathonBasicId = 2;//比赛 Id 
+	required string marathonName =3;//赛事名称
+	required string imgSrc = 4;//赛事图片地址
+	required float cheerProgress = 5;//助力进度
+}
+
+//请求其他玩家助力列表
+message req_other_cheer_list_in
+{
+ 
+}
+
+message req_other_cheer_list_out
+{
+	repeated other_cheer_info cheerInfo = 1;//其他玩家助力信息
+}
+
+message notify_marathon_cheer_progress_out
+{
+	optional float watchPlayerProgress = 1;//围观玩家助力进度
+	optional float selfCheerProgress =2;//自己助力进度
+}
+message req_player_cheer_share_info_in
+{
+	required string playerId =1;//玩家id
+	required uint32 mapId = 2;//地图ID
+}
+
+message req_player_cheer_share_info_out
+{
+	required string playerId =1;//玩家id
+	optional string miniPath = 2;//小程序路径
+	optional string title =3;//分享标题
+	optional string imageUrl = 4;//分享图片
+	optional uint32 miniProgramType = 5;//小程序类型 0-正式，1-开发，2-体验
+}
+
+message convert_cheer_reward_record
+{
+	required uint32 recordId =1;//记录id
+	required uint64 time = 2;//时间
+	required string rewardName =3;//奖品名称
+	required uint32 costPoint = 4;//消耗加油点数
+	required uint32 num = 5;//兑换数量
+	required uint32 state = 6;//状态 1-待确认  2-已兑换
+	optional string rewardUnit=7;//奖品单位
+	
+}
+
+//请求加油奖励
+message req_player_cheer_reward_info_in
+{
+	required uint32 marathonBasicId =1;//比赛 Id 
+}
+
+message req_player_cheer_reward_info_out
+{
+	required uint32 cheerPoint =1;//玩家加油点数
+	required string rewardName =2;//奖品名称
+	required string rewardIcon =3;//奖品图标 url或者图集里图片名称
+	required uint32 cheerPerNeed =4;//每个奖品需要加油点
+	repeated convert_cheer_reward_record recordList = 5;//兑奖记录
+	optional string rewardUnit= 6;//奖品单位
+	
+}
+
+
+//请求兑换奖励
+message req_convert_cheer_reward_in
+{
+	required uint32 marathonBasicId =1;//比赛 Id 
+	required uint32 cheerPoint =2;//玩家消耗加油点数
+	required uint32 num = 3;//兑换数量
+	required string rewardName =4;//奖品名称
+}
+
+message req_convert_cheer_reward_out
+{
+	required uint32 result =1;//兑换结果 1-成功  2-失败
+	required uint32 marathonBasicId =2;//比赛 Id 
+	optional convert_cheer_reward_record record =3;//兑换记录  兑换成功需要赋值
+}
+
+//确认兑换
+message req_confirm_convert_cheer_reward_in
+{
+	required uint32 recordId =1;//记录id	
+}
+message req_confirm_convert_cheer_reward_out
+{
+	required uint32 recordId =1;//记录id	
+	required uint32 result =2;//兑换结果 1-成功  2-失败
+}

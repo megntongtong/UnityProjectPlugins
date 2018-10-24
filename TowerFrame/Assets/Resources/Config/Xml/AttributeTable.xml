@@ -1,0 +1,20 @@
+<AttributeTable>
+  <IData id="0" name="19000" describe="20000" value="10" Overlay="1" toplimit="0" />
+  <IData id="1" name="19001" describe="20001" value="10" Overlay="1" toplimit="0" />
+  <IData id="2" name="19002" describe="20002" value="10" Overlay="1" toplimit="0" />
+  <IData id="3" name="19003" describe="20003" value="10" Overlay="1" toplimit="0" />
+  <IData id="4" name="19004" describe="20004" value="1" Overlay="1" toplimit="0" />
+  <IData id="5" name="19005" describe="20005" value="1" Overlay="0" toplimit="0" />
+  <IData id="6" name="19006" describe="20006" value="0.2" Overlay="1" toplimit="0" />
+  <IData id="7" name="19007" describe="20007" value="1000" Overlay="1" toplimit="0" />
+  <IData id="8" name="19008" describe="20008" value="0.05" Overlay="1" toplimit="0" />
+  <IData id="9" name="19009" describe="20009" value="5" Overlay="1" toplimit="0" />
+  <IData id="10" name="19010" describe="20010" value="0.05" Overlay="1" toplimit="0" />
+  <IData id="11" name="19011" describe="20011" value="10" Overlay="1" toplimit="0" />
+  <IData id="12" name="19012" describe="20012" value="1" Overlay="1" toplimit="2" />
+  <IData id="20" name="19020" describe="20020" value="0" Overlay="0" toplimit="0" />
+  <IData id="21" name="19021" describe="20021" value="0.03" Overlay="0" toplimit="0" />
+  <IData id="22" name="19022" describe="20022" value="0" Overlay="0" toplimit="0" />
+  <IData id="23" name="19023" describe="20023" value="0" Overlay="0" toplimit="0" />
+  <IData id="24" name="19024" describe="20024" value="0" Overlay="0" toplimit="0" />
+</AttributeTable>

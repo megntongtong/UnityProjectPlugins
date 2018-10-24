@@ -1,0 +1,500 @@
+package com.sporger.server.proto.model; 
+import "model/ProtoBag.proto";  
+import "model/ProtoPlayer.proto";
+import "model/ProtoRunReport.proto";
+import "model/ProtoChat.proto";
+import "model/ProtoCheer.proto";
+
+//请求比赛活动列表 
+message req_marathon_in { 
+     
+} 
+//收到比赛活动列表 
+message req_marathon_out { 
+	repeated marathon_event_info list = 1;//活动列表
+} 
+//  推送玩家有比赛要开始了
+message notify_have_marathon_start_out
+{  
+	required uint32 marathonBasicId = 1;//比赛ID
+	required uint64 startTime = 2;// 开始时间
+}
+
+ 
+// 比赛
+message marathon_event_info
+{
+	required uint32 marathonBasicId = 1;//比赛 Id 
+	required string marathonName =2;//赛事比赛大项名称
+	required string imgSrc = 3;//赛事图片地址
+	required uint64 signupEndTime = 4;//赛事报名截止时间
+	required uint64 startRunTime = 5;//赛事开跑时间
+	required uint32 entranceTimeRange = 6;//入场时间范围
+	required uint64 endTime = 7;//赛事结束时间
+	required uint32 crowd = 8;//观众
+	required bool isRegister = 9;//是否已经报名  
+	required bool isHot =10;//是否热门比赛
+	required bool isDummy = 11;//是否虚拟比赛
+	required bool isReal = 12;//是否线下比赛  
+	required uint32 registerCount = 13;//报名人数
+	required bool isRun =14;//是否跑过
+	optional uint32 cheerNum =15;//加油人数
+	optional bool hasReward = 16;//是否有安利奖励
+	repeated string hostId = 17;//主持人id	
+} 
+
+ 
+//请求正在进行的项目
+message req_marathon_proceed_list_in
+{
+	
+}
+
+message req_marathon_proceed_list_out
+{
+	repeated marathon_event_info list = 1;//活动列表
+}
+
+
+//倒计时，1秒1次
+message notify_marathon_count_down_out
+{
+	required uint32 sencondLeft = 1;//倒计时剩余秒数
+}
+
+message marathon_curent_index
+{
+	required string nickName = 1;//昵称
+	required uint32 distance = 2;//跑步距离 ，单位米
+	required uint32 useTime = 3;//用时（s）
+	required string playerId = 4;//玩家id
+	required string nickIcon = 5;//玩家头像
+	optional uint32 rank = 6;//排行榜 
+}
+//当前跑步实时信息，比如排名
+message notify_marathon_curent_info_out
+{
+	repeated marathon_curent_index curInfo = 1;//当前信息 
+	required uint32 playerCount = 2;//参赛人数
+	required uint32 audienceCount = 3;//观众人数
+}
+
+
+message marathon_player_rank_info
+{
+	required uint32 rankId = 1;//排名
+	required string number = 2;//号码牌
+	required string nickName =3;//玩家姓名
+	required uint32 finishTime = 4;//完赛时间
+}
+
+//马拉松结算
+message notify_marathon_gameover_out
+{
+	repeated item_simple_info rewards = 1;//奖励 
+	required run_report_in runInfo =2;//跑步数据
+	required uint32 rank =3;//玩家排名
+	required bool isFinished= 4;//是否完赛
+}
+//请求进入马拉松比赛
+message req_enter_marathon_map_in
+{
+	required uint32 mapId = 1; //地图ID
+}
+
+
+message req_enter_marathon_map_out
+{
+	required uint32 mapId = 1; //地图ID
+    optional uint64 roomId = 2; //房间ID
+	optional uint32 distance = 3;//已经跑过的距离
+	required uint32 eventType = 4;//项目类型
+	required string scenePath = 5; //地图路径
+	required string prefabPath = 6; //预制件路径
+	required marathon_event_info currentMarathon = 7; //当前马拉松信息
+	optional string marathonDetailName =8;//马拉松具体名称
+	optional uint32 marathonDistance =9;//马拉松总距离,以米单位
+	optional uint32 suit = 10;//赛事对应服装ID
+	optional float useTime = 11;//已经跑过的时间,秒为单位
+	optional uint32 step = 12;//已经跑过的步数
+}
+
+message marathon_player_info
+{
+	required player_simple_info playerInfo = 1;//玩家信息
+	required int32 eventType = 2;//比赛项目
+}
+
+message notify_marathon_player_enter_out
+{
+	repeated marathon_player_info playerList = 1;//玩家信息
+}
+
+//请求马拉松记录
+message req_marathon_record_in
+{
+	required uint32 marathonBasicId = 1;//比赛ID
+	required uint32 marathonId = 2;//比赛具体ID
+	required uint32 page=3;//第几页
+}
+
+message req_marathon_record_out
+{
+	repeated marathon_player_rank_info rankInfo = 1;//比赛信息
+}
+message marathon_record_page_info
+{
+    required uint32 marathonId = 1;//比赛具体项目
+	required uint32 allPage = 2;//项目页数
+}
+
+//请求马拉松基本记录
+message req_marathon_base_record_in
+{
+	required uint32 marathonBasicId = 1;//比赛ID
+}
+
+message req_marathon_base_record_out
+{
+	optional marathon_player_rank_info playerRankInfo = 1;//本人比赛信息
+	required uint32 marathonId = 2;//本人比赛具体项目
+	repeated marathon_record_page_info pageInfo =3;//项目页数
+}
+
+enum marathon_player_status
+{
+	RUNNING = 0;//正常比赛
+	ABSENCE = 1;//缺席
+	FINISHED = 2;//完成比赛
+	INVALID = 3;//无效，找不到此人
+}
+
+message marathon_player_running_info
+{
+	required uint32 distance = 1;//跑步距离，米为单位
+	required uint32 useTime = 2;//使用时间，秒为单位
+	required uint32 index = 3;//排名
+	required uint32 eventType = 4;//项目类型
+}
+
+//搜索马拉松玩家基本信息
+message marathon_search_info
+{
+	required player_simple_info baseInfo = 1;//玩家基本信息 
+	required string number = 2;//号码牌
+	required bool hasAttention =3;//是否已关注
+}
+//搜索马拉松玩家
+message req_marathon_search_player_in
+{
+	required string inputValue = 1;//玩家输入内容
+	required uint32 mapId = 2;//地图ID
+}
+
+message req_marathon_search_player_out
+{
+	repeated marathon_search_info player =1 ;//玩家列表
+}
+
+
+enum watch_marathon_result
+{
+	NOERROR = 0;//正常
+	NOBODY = 1;//没人
+	TIMEOUT = 2;//比赛关门
+}
+
+//进入马拉松围观
+message req_marathon_enter_watch_race_mode_in
+{
+	required uint32 mapId = 1;//地图ID
+}
+
+message req_marathon_enter_watch_race_mode_out
+{
+	required watch_marathon_result result = 1;//返回随机结果
+	required string scenePath = 2; //地图路径
+	required string prefabPath = 3; //预制件路径
+	required marathon_event_info currentMarathon = 4; //当前马拉松信息
+	required uint32 curMarathonId = 5;//当前马拉松项目id
+	required uint64 roomId = 6;//房间id
+}
+
+message notify_marathon_watching_player_info_out
+{
+	required uint32 distance = 1;//跑步距离，米为单位
+	required uint32 useTime = 2;//使用时间，秒为单位
+	required uint32 index = 3;//排名
+	required uint32 playerCount = 4;//参赛人数
+	required uint32 audienceCount = 5;//观众人数
+}
+
+//服务器通知在围观模式中随机切换玩家
+message notify_marathon_change_watch_player_out
+{
+	required watch_marathon_result result = 1;//返回随机结果
+	optional player_simple_info tarPlayerInfo = 2;//围观目标玩家信息
+	optional marathon_player_running_info tarPlayerRunningInfo = 3;//围观目标玩家跑步信息
+}
+
+//请求围观某玩家，主要针对前三名或已知ID的玩家
+message req_marathon_watch_player_in
+{
+	required string playerId = 1;//玩家ID
+	required uint32 mapId = 2;//地图ID
+}
+
+message req_marathon_watch_player_out
+{
+	required marathon_player_status status = 1;//人物状态
+	optional player_simple_info tarPlayerInfo = 2;//围观目标玩家信息
+	optional marathon_player_running_info runningInfo = 3;//运动信息
+	required uint32 taskAcceptId = 4;//任务ID
+	required string marathonName =5;//马拉松名称
+	required uint32 marathonDistance = 6;//马拉松总距离,以米单位
+}
+
+//请求停止围观某玩家
+message req_stop_marathon_watch_race_in
+{
+	required string playerId = 1;//玩家ID
+}
+
+//围观模式马拉松结束
+message marathon_watch_mode_result_info
+{
+	required uint32 marathonId = 1;//比赛项目 
+	repeated marathon_player_rank_info rankInfo = 2;//比赛信息
+}
+message notify_marathon_watch_mode_finish_out
+{
+	repeated marathon_watch_mode_result_info resultList = 1;//比赛结果
+}
+
+
+//弱连网增加协议
+
+//当前跑步实时信息，比如排名
+message req_marathon_curent_info_in
+{
+	required uint64 roomId = 1;//房间id
+}
+
+message req_marathon_curent_info_out
+{
+	repeated marathon_curent_index curInfo = 1;//当前信息 
+	required uint32 playerCount = 2;//参赛人数
+	required uint32 audienceCount = 3;//观众人数
+}
+
+
+//马拉松结算
+message req_marathon_gameover_in
+{
+	required uint64 roomId = 1;//房间id
+}
+
+message req_marathon_gameover_out
+{
+	repeated item_simple_info rewards = 1;//奖励 
+	required run_report_in runInfo =2;//跑步数据
+	required uint32 rank =3;//玩家排名
+	required bool isFinished= 4;//是否完赛
+}
+
+//马拉松玩家进入
+message req_marathon_player_enter_in
+{
+	required uint64 roomId = 1;//房间id
+}
+
+message req_marathon_player_enter_out
+{
+	repeated marathon_player_info playerList = 1;//玩家信息
+}
+
+
+//刷新被围观玩家信息，1秒1次
+message req_marathon_watching_player_info_in
+{
+	required uint64 roomId = 1;//房间id
+}
+
+message req_marathon_watching_player_info_out
+{
+	required uint32 distance = 1;//跑步距离，米为单位
+	required uint32 useTime = 2;//使用时间，秒为单位
+	required uint32 index = 3;//排名
+	required uint32 playerCount = 4;//参赛人数
+	required uint32 audienceCount = 5;//观众人数
+}
+
+//关门了，进入结算界面围观结束，关门了，进入结算界面
+message req_marathon_watch_mode_finish_in
+{
+	required uint64 roomId = 1;//房间id
+}
+message req_marathon_watch_mode_finish_out
+{
+	repeated marathon_watch_mode_result_info resultList = 1;//比赛结果
+}
+
+
+//马拉松中协议更改8.18
+//当前跑步实时信息
+message marathon_curent_info
+{
+	repeated marathon_curent_index curInfo = 1;//当前信息 
+}
+
+//被围观玩家信息
+message marathon_watching_player_info
+{
+	required uint32 distance = 1;//跑步距离，米为单位
+	required uint32 useTime = 2;//使用时间，秒为单位
+	required uint32 index = 3;//排名
+}
+
+//马拉松结算
+message marathon_gameover
+{
+	repeated item_simple_info rewards = 1;//奖励 
+	required run_report_in runInfo =2;//跑步数据
+	required uint32 rank =3;//玩家排名
+	required bool isFinished= 4;//是否完赛
+}
+//马拉松点赞人信息
+message thumbs_up_player_info
+{
+	required string playerId = 1; //玩家ID	
+	required string playerName = 2;//玩家昵称
+	required uint32 sex = 5;//女1男2
+	required string headIcon = 9;//头像
+}
+
+//马拉松加油信息
+message marathon_cheer_rank_info
+{
+	required string playerId = 1; //玩家ID	
+	required string playerName = 2;//玩家昵称
+	required string headIcon = 3;//头像
+	required uint32 point =4;//加油点数
+	required uint32 rank = 5;//名次
+}
+
+//赛中基本信息
+message marathon_run_base_info
+{
+	required uint32 playerCount = 1;//参赛人数
+	required uint32 audienceCount = 2;//观众人数
+}
+//请求马拉松中的信息
+message req_marathon_info_in
+{
+	required uint64 roomId = 1;//房间id
+	required bool isRunner =2;//是否是跑者
+	optional uint32 curMarathonId =3;//比赛项目
+}
+
+message req_marathon_info_out
+{
+	optional marathon_curent_info currentInfo =1;//当前跑者实时信息
+	optional marathon_watching_player_info wathedInfo =2;//被围观的玩家信息
+	repeated marathon_player_info playerList = 3;//有玩家进入
+	repeated player_instance_syncinfo playersPosInfo= 4;//0到多个玩家在副本中位置同步信息
+	optional marathon_gameover result = 5;//马拉松结算
+	repeated thumbs_up_player_info thumbsUpPlayer =6;//有人点赞
+	optional voice_message_base_info fansVoice=7;//有粉丝语音留言
+	repeated cheer_remind_info remind = 8;//加油提醒
+	repeated string bulletScreenList =9;//弹幕
+	optional marathon_run_base_info baseInfo= 10;//赛中基本信息
+	repeated marathon_curent_index concernedPlayer = 11;//关注的跑者信息列表
+	repeated string playerOut = 12;//玩家退出
+	optional voice_message_base_info runnerResponse=13;//跑者回复围观者
+	optional voice_message_base_info hostVoiceMessage = 14;//主持人语音
+}
+
+message marathon_rank_base_info
+{
+	required uint32 rank = 1;//排名
+	required string nickName = 2;//昵称
+	required string playerId = 3;//玩家id
+	required string nickIcon = 4;//玩家头像
+	optional uint64 spentTime = 5;//用时
+	optional uint32 distance = 6;//跑步距离 ，单位米
+	optional uint32 cheerPoint = 7;//加油点
+	optional string rewardItem = 8;//奖品
+	optional uint32 rewardState = 9;//rankType为2需要赋值 1-可以领奖  2-已领过   3-没有奖励
+}
+
+//请求马拉松排行榜
+message req_marathon_rank_in
+{
+	required uint32 rankType = 1;//排行榜类型   1-赛事   2-跑者人气   3-围观加油
+	required uint32 marathonBasicId = 2;//比赛 Id 
+}
+message req_marathon_rank_out
+{
+	required uint32 rankType = 1;//排行榜类型   1-赛事   2-跑者人气   3-围观加油
+	repeated marathon_rank_base_info rankInfo = 2;//排行列表	
+}
+
+//请求领取马拉松奖励
+message req_get_marathon_rank_reward_in
+{
+	required uint32 marathonBasicId =1;//比赛 Id 
+	required uint32 rank =2;//排名	
+	required string name =3;//收件人姓名
+	required string phoneNum=4;//收件人手机号
+	required string addr =5;//收件人地址
+	required string suggestions = 6;//意见
+}
+
+message req_marathon_rank_reward_out
+{
+	required uint32 result =1;// 1-成功  2-失败
+}
+
+//请求马拉松人气排行或粉丝排行
+message req_marathon_hot_rank_info_in
+{
+	required uint64 roomId = 1;//房间id
+	required bool isRunner =2;//是否是跑者
+	required uint32 curMarathonId =3;//比赛项目
+	required string playerId =4;//玩家id
+}
+
+message req_marathon_hot_rank_info_out
+{
+	repeated marathon_cheer_rank_info hotRank = 1;//人气排行榜 跑者发送人气排行榜
+	repeated marathon_cheer_rank_info fansCheerRank = 2;//粉丝加油榜 围观发送粉丝加榜
+}
+
+//请求推荐跑者
+message req_marathon_recommend_runner_in
+{
+	required uint64 roomId = 1;//房间id
+	required uint32 curMarathonId =2;//比赛项目
+}
+
+message req_marathon_recommend_runner_out
+{
+	repeated marathon_curent_index recommendRunner = 1;//推荐跑者列表
+}
+
+message marathon_rank_reward
+{
+	required string rank = 1;//名次
+	required string reward = 2;//奖励内容
+}
+
+//请求得到马拉松排名奖励内容
+message req_marathon_rank_reward_list_in
+{
+	required uint32 mapId = 1;//地图ID
+}
+
+message req_marathon_rank_reward_list_out
+{
+	repeated marathon_rank_reward reward = 1;//奖励列表
+}

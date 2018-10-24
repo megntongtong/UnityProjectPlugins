@@ -1,0 +1,181 @@
+package com.sporger.server.proto.model;
+
+message player_chat_base_info{
+	required string playerId = 1; //玩家ID
+	required string headIconId = 2;//头像id
+	required string playerName = 3;//玩家昵称
+}
+
+//请求实时语音
+message req_realtime_voice_in{
+	repeated string playerId =1;//玩家id
+}
+
+message req_realtime_voice_out{
+	required string channelId = 1;//房间id
+}
+
+//取消请求语音
+message req_cancel_realtime_voice_in{
+	required string channelId = 1;//房间id
+}
+
+//接受或拒绝实时语音，或者超时 
+message req_accept_realtime_voice_in{
+	required uint32 state =1;// 状态： 1接受；2拒绝；3超时
+	required string channelId = 2;//房间id
+}
+
+
+//挂断实时语音
+message req_hangup_realtime_voice_in{
+	required string channelId = 1;//房间id	
+}
+
+
+//通知玩家有实时语音请求
+message notify_realtime_voice_req{
+	required player_chat_base_info player = 1;//发起玩家信息
+	required string channelId = 2;//房间id
+}
+
+
+//通知玩家语音请求结果
+message notify_realtime_voice_req_failure{
+	required string channelId = 1;//房间id
+}
+
+
+//通知有玩家进入语音房间
+message notify_player_join_realtime_voice_room{
+	required player_chat_base_info player = 1;//玩家信息 
+}
+
+
+//通知对方玩家取消语音请求
+message notify_cancel_realtime_voice_req{
+	required player_chat_base_info player = 1;//玩家信息 
+	required string channelId = 2;//房间id	
+}
+
+
+//通知有玩家离开语音房间
+message notify_player_leave_realtime_voice_room{
+	required player_chat_base_info player = 1;//玩家信息	
+}
+
+//请求发送弹幕
+message req_send_bullet_screen_in
+{
+	required uint32 mapId = 1;//地图ID
+	required string content = 2;//弹幕内容
+}
+
+//弹幕
+message notify_bullet_screen_text_out
+{
+	repeated string contentList = 1;//内容
+}
+
+
+
+//语音留言
+message voice_message_base_info
+{
+	required string playerId = 1; //玩家ID
+	required string playerName = 2;//玩家昵称
+	required string headIcon =3;//玩家头像
+	optional string voiceId = 4;//语音id
+	optional uint32 voiceSeconds = 5;//语音时长(s)
+	optional uint32 marathonId = 6;//赛事id
+	optional string marathonName =7;//马拉松名称
+	optional uint64 time =8;//留言时间
+	optional uint32 distance = 9;//距离（米）
+	optional bool host =10;//是否是主持人的语音
+}
+
+
+//跑者发送语音留言
+message req_runner_send_voice_message_in
+{
+	required string voiceId = 1;//语音id
+	required uint32 voiceSeconds = 2;//语音时长(s)
+	optional uint32 marathonId = 3;//赛事id  自由跑发mapid
+	optional uint32 distance = 4;//距离（米）   当跑者查看语音地图时候 需要根据查看的公里点发送语音
+	required uint32 type =5;//类型 1-马拉松跑者正常留言    2-跑者回复粉丝  3-自由跑回复粉丝
+	optional string fansId = 6;//粉丝id 
+}
+message req_runner_send_voice_message_out
+{
+}
+
+
+//获取关注的跑者语音留言列表
+message req_runner_concerned_voice_message_list_in
+{
+	
+}
+message req_runner_concerned_voice_message_list_out
+{
+	repeated voice_message_base_info messageList = 1;//留言列表
+}
+
+
+//粉丝向跑者发送语音留言
+message req_fans_send_voice_message_in
+{
+	required string runnerId = 1;//跑者id
+	required string voiceId =2;//语音id
+	required uint32 voiceSeconds = 3;//语音时长(s)
+	optional uint32 marathonId = 4;//赛事id  自由跑发mapid
+	optional uint32 distance = 5;//距离（米）
+	required uint32 type = 6;// 1-马拉松需保存 实时发给跑者  2-马拉松地图语音，需保存 不需要实时发送给跑者  3-自由跑给跑者留言
+}
+message req_fans_send_voice_message_out
+{
+	required uint32 marathonId = 1;//赛事id
+}
+
+
+//获取地图语音留言（包括跑者）
+message req_fans_voice_message_list_in
+{
+	required uint32 marathonId = 1;//赛事id
+	required uint32 distance = 2;//距离（米）
+	required string runnerId =3;//跑者id
+}
+message req_fans_voice_message_list_out
+{
+	repeated voice_message_base_info messageList = 1;//留言列表
+}
+
+
+message map_message_distance
+{
+	required uint32 distance =1;//距离（米）
+	required string playerId =2;//发起者id
+	required uint32 voiceCount =3;//留言数
+}
+
+//请求地图语音列表
+message req_map_voice_message_list_in
+{
+	required uint32 marathonId = 1;//赛事id
+	required string runnerId = 2;//跑者id
+}
+
+message req_map_voice_message_list_out
+{
+	repeated map_message_distance distanceList = 1;
+}
+
+//主持人语音
+message req_host_send_voice_message_in
+{
+	required string voiceId =1;//语音id
+	required uint32 voiceSeconds =2;//语音时长(s)
+	optional uint32 marathonId = 3;//赛事id 
+}
+message req_host_send_voice_message_out
+{
+}

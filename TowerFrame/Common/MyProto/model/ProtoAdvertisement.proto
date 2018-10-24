@@ -1,0 +1,12 @@
+package com.sporger.server.proto.model;
+
+message req_advertisement_info_in
+{
+	required uint32 advType =1;//1-登录广告 2-报名页广告
+}
+
+message req_advertisement_info_out
+{
+	required uint32 advType =1;//广告类型
+	repeated string url =2;//广告图片地址 
+}

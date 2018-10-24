@@ -1,0 +1,58 @@
+package com.sporger.server.proto.model;
+import "model/ProtoPlayer.proto";
+import "model/ProtoRunReport.proto";
+import "model/ProtoCheer.proto";
+import "model/ProtoChat.proto";
+//请求自由跑中玩家的开跑时间
+message req_free_run_player_start_run_time_in
+{
+	required string playerId = 1;//要查看的玩家开跑时间
+	required uint64 roomId = 2;//房间ID
+}
+
+message req_free_run_player_start_run_time_out
+{
+	required uint64 startRunTime = 1;//玩家的开跑时间
+}
+
+//自由跑请求暂停
+message req_free_run_pause_in
+{
+	required uint64 roomId = 1;//房间ID
+	required uint64 curTime = 2;//当前服务器时间
+}
+
+//自由跑请求恢复跑步
+message req_free_run_resume_in
+{
+	required uint64 roomId = 1;//房间ID
+	required uint64 curTime = 2;//当前服务器时间
+}
+
+//请求自由跑结束
+message req_free_run_end_in
+{
+    required uint64 roomId = 1; //房间ID
+}
+
+//自由跑请求结算
+message req_free_run_end_out
+{
+	required run_report_in runReport = 1;//运动数据
+}
+
+
+message req_free_run_info_in
+{
+	required uint64 roomId = 1; //房间ID
+	required uint32 mapId = 2;//地图ID
+}
+
+message req_free_run_info_out
+{
+	repeated player_simple_info playerIn= 1;//玩家进入
+	repeated string playerOut = 2;//玩家退出
+	repeated player_instance_syncinfo playersPosInfo= 3;//玩家在副本中位置同步信息
+	repeated cheer_remind_info remind = 4;//加油提醒
+	optional voice_message_base_info fansVoice = 5;//有粉丝语音留言
+}

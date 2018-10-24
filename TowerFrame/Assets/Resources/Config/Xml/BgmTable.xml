@@ -1,0 +1,4 @@
+<BgmTable>
+  <IData id="1" scene="Scenes\marathon_hangzhou.unity" bgm="Audio\BGM\nomusic.mp3" environmentalSoundEffect="" bgmID="4" />
+  <IData id="2" scene="Scenes\town_city\city1.unity" bgm="Audio\BGM\nomusic.mp3" environmentalSoundEffect="" bgmID="4" />
+</BgmTable>

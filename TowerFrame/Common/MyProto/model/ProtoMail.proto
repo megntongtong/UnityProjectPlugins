@@ -1,0 +1,53 @@
+package com.sporger.server.proto.model;
+import "model/ProtoBag.proto";  
+
+//邮件基础信息
+message mail_base_info{
+	required uint64 mailId =1;//邮件Id
+	required string title =2;//邮件标题
+	required uint32 type =3;//邮件类型
+	required uint64 time = 4;//邮件发送时间
+	required string text =5;//邮件文字内容
+	required string sender = 6;//发件人
+    repeated item_simple_info items =7;//邮件物品
+	required bool isRead = 8;//是否已读
+	required bool isGetItems = 9;//是否已获得物品
+}
+
+//请求邮件列表
+message req_mail_info_out{
+	repeated mail_base_info mailList = 1;//邮件列表
+}
+
+
+//请求阅读邮件
+message req_read_mail_in{
+	required uint64 mailId = 1;//邮件Id
+}
+message req_read_mail_out{
+	required uint64 mailId = 1;//邮件Id
+}
+
+
+//请求领取邮件物品
+message req_get_mail_items_in{
+	repeated uint64 mailId = 1;//邮件Id
+}
+message req_get_mail_items_out{
+	repeated item_simple_info items = 1;//邮件物品 
+}
+
+
+//请求删除邮件
+message req_delete_mail_in{
+	repeated uint64 mailId =1;//邮件Id
+}
+message req_delete_mail_out{
+	repeated uint64 mailId = 1;//邮件Id
+}
+
+
+//通知有新的邮件
+message notify_new_mail_out{
+	repeated mail_base_info mailList = 1;//邮件列表
+}

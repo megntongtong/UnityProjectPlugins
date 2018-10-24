@@ -1,0 +1,75 @@
+package com.sporger.server.proto.model;
+import "model/ProtoPlayer.proto";
+ 
+message interaction_rank
+{
+	required uint32 rank = 1;		//排名
+	required uint32 point = 2;		//助威点
+    required string playerIcon = 3;	//玩家头像
+    required string playerName = 4;	//玩家名字
+	required string playerId = 5;	//玩家ID
+}
+ 
+  
+  //	请求结算
+message req_interaction_result_in {
+    required uint32 integral = 1;		//本次总积分
+    required string playerId = 2;		//围观玩家ID
+	required uint32 gameType =3;//1-老版本小游戏， 2-补给小游戏
+	optional uint32 marathonBaseId =4;//马拉松赛事id
+}
+ //	结算
+message req_interaction_result_out {
+    required uint32 integral = 1;		//本次积分
+	required uint32 point = 2;		//助威点
+	required uint32 grade = 3;		//评级
+	required bool breaking = 4;		//破纪录
+	required string shareTitle =5;//分享标题
+	required string imageUrl = 6;//图片地址
+	required string programPath = 7;//小程序路径
+	optional uint32 miniProgramType = 8;//小程序类型  0-正式，1-开发，2-体验
+	optional uint32 highPoint =9; //历史最高贡献值
+	optional string nickName =10;//昵称，如果没绑定微信用游戏昵称
+	optional string nickIcon = 11;//头像url 如果没绑定微信用游戏头像
+}
+ 
+ 
+ //	助威 排行榜
+message req_interaction_rank_in {
+    required string playerId = 1;//玩家ID
+    required uint32 taskAcceptId = 2;//
+	required uint32 marathonBaseId =3;//马拉松赛事id
+}
+ //	助威 排行榜
+message req_interaction_rank_out {
+    repeated interaction_rank list = 1;		//排行榜列表
+}
+
+enum req_interaction_result
+{
+	NO_ERROR = 1;//无错误
+	PLAYER_IS_NOT_IN_RACE = 2;//玩家不在比赛中
+	NO_PLAYER_IN_RACE = 3;//比赛中已经没有玩家
+}
+
+//请求进入小游戏
+message req_interaction_in {
+    required uint32 marathonBaseId = 1;//马拉松id
+}
+
+//请求进入小游戏
+message req_interaction_out {
+	required req_interaction_result result = 1;//请求结果
+    optional player_simple_info targetPlayerInfo = 2;//被围观玩家信息
+}
+
+//围观指定玩家，并进入小游戏
+message req_interaction_specify_player_in {
+    required string playerId = 1;//指定的玩家id
+}
+
+//围观指定玩家，并进入小游戏
+message req_interaction_specify_player_out {
+	required req_interaction_result result = 1;//请求结果
+    optional player_simple_info targetPlayerInfo = 2;//被围观玩家信息
+}

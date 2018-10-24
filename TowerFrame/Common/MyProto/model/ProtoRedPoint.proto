@@ -1,0 +1,46 @@
+package com.sporger.server.proto.model;
+ 
+ 
+ 
+ //红点提醒
+message notify_remind_list_out
+{
+	repeated remind_info remindInfo = 1;		 
+}
+ 
+message remind_info
+{
+	required RemindType id = 1;		//ID
+	repeated int32 itemId = 2;		//单个数据Id
+}
+ 
+ //	用户点击红点
+message req_remind_in {
+    required remind_info remindInfo = 1;		//红点
+}
+ //	用户点击红点返回
+message req_remind_out {
+    required remind_info remindInfo = 1;		//红点
+	required bool remindShow = 2;		//大项显示
+	required bool itemShow = 3;			//小项显示
+}
+
+
+//红点提醒
+message notify_remind_out
+{
+	required remind_info remindInfo = 1;		 
+}
+
+enum RemindType {
+    NONE = 0;
+    FRIEND = 1;		 //好友
+    DAILYMISSION = 2;//每日任务
+    INFORMATION = 3;//角色信息
+    BAG = 4;		//背包
+    RUNRECORD = 5;	//记录
+    ACTIVITY = 6;	//活动
+    MAIL = 7; 		//邮件
+}
+ 
+  

@@ -1,0 +1,13 @@
+<EquipTable>
+  <IData id="1010001" equipType="1" equipName="201001" sex="1" equipModelPath="Character_girl_01_skin\Clothes\Clothes_girl_01.prefab" iconPath="Clothes_girl_01" atlasName="Icon" priceType="1" price="120" describe="401001" />
+  <IData id="1020001" equipType="2" equipName="202001" sex="1" equipModelPath="Character_girl_01_skin\Trousers\Trousers_girl_01.prefab" iconPath="Trousers_girl_01" atlasName="Icon" priceType="1" price="130" describe="402001" />
+  <IData id="1030001" equipType="3" equipName="203001" sex="1" equipModelPath="Character_girl_01_skin\Shoes\Shoes_girl_01.prefab" iconPath="Shoes_girl_01" atlasName="Icon" priceType="1" price="140" describe="403001" />
+  <IData id="1050001" equipType="5" equipName="205001" sex="1" equipModelPath="Character_girl_01_skin\RunningWaterproofBag\RunningWaterproofBag_girl_01.prefab" iconPath="RunningWaterproofBag_girl_01" atlasName="Icon" priceType="1" price="160" describe="405001" />
+  <IData id="1060001" equipType="6" equipName="206001" sex="1" equipModelPath="Character_girl_01_skin\Kneepad\Kneepad_girl_01.prefab" iconPath="Kneepad_girl_01" atlasName="Icon" priceType="1" price="170" describe="406001" />
+  <IData id="1080001" equipType="8" equipName="208001" sex="1" equipModelPath="Character_girl_01_skin\Sleevelet\Sleevelet_girl_01.prefab" iconPath="Sleevelet_girl_01" atlasName="Icon" priceType="1" price="190" describe="408001" />
+  <IData id="1090001" equipType="9" equipName="209001" sex="1" equipModelPath="Character_girl_01_skin\Wristlet\Wristlet_girl_01.prefab" iconPath="Wristlet_girl_01" atlasName="Icon" priceType="1" price="200" describe="409001" />
+  <IData id="2010001" equipType="1" equipName="301001" sex="2" equipModelPath="Character_boy_01_skin\Clothes\Clothes_boy_01.prefab" iconPath="Clothes_boy_01" atlasName="Icon" priceType="1" price="140" describe="501001" />
+  <IData id="2020001" equipType="2" equipName="302001" sex="2" equipModelPath="Character_boy_01_skin\Trousers\Trousers_boy_01.prefab" iconPath="Trousers_boy_01" atlasName="Icon" priceType="1" price="150" describe="502001" />
+  <IData id="2030001" equipType="3" equipName="303001" sex="2" equipModelPath="Character_boy_01_skin\Shoes\Shoes_boy_01.prefab" iconPath="Shoes_boy_01" atlasName="Icon" priceType="1" price="160" describe="503001" />
+  <IData id="2090001" equipType="9" equipName="309001" sex="2" equipModelPath="Character_boy_01_skin\Wristlet\Wristlet_boy_01.prefab" iconPath="Wristlet_boy_01" atlasName="Icon" priceType="1" price="220" describe="509001" />
+</EquipTable>

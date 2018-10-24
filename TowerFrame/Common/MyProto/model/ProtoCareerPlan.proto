@@ -1,0 +1,92 @@
+package com.sporger.server.proto.model;
+
+import "model/ProtoBag.proto";
+
+//运动计划
+message career_plan_info
+{
+	required uint32 planId = 1;//计划id
+	required uint32 allCal =2;//当前消耗大卡
+	required uint32 curDailyPlanId = 3;//当天计划id
+	required bool isFinished = 4;//计划是否完成
+	required bool isGetReward = 5;//是否领奖
+	required bool isCanChange = 6;//是否可更换	
+}
+
+//运动计划记录
+message career_plan_record_info
+{
+	required uint32 planId = 1;//计划id
+	required uint32 allCal =2;//总共消耗大卡
+	required uint32 time = 3;//计划完成次数
+	required uint32 lastDailyPlanId = 4;//最后完成计划id
+}
+
+//每日运动计划
+message career_daily_plan_info
+{
+	required uint32 dailyPlanId = 1;//计划id
+	required bool isFinished = 2;//是否完成
+	required uint32 spendTime = 3;//花费时间
+	required uint32 averageSpeed= 4;//平均配速
+	required uint32 cal =5;//消耗大卡
+}
+
+//请求玩家当前生涯计划列表
+message req_player_career_plan_list_out
+{
+	repeated career_plan_info curPlanList = 1;//当前进行的计划
+}
+
+//请求生涯每日计划
+message req_player_career_daily_plan_in
+{
+	required uint32 planId =1;//计划id
+}
+
+message req_player_career_daily_plan_out
+{
+	repeated career_daily_plan_info dailyPlan = 1;//每日计划
+}
+
+//请求玩家生涯记录列表
+message req_player_career_plan_record_list_in
+{
+	required uint32 planType = 1;//计划类型 1：减肥 2：健走 3：跑步
+}
+message req_player_career_plan_record_list_out
+{
+	repeated career_plan_record_info planRecordList = 1;//计划记录
+}
+
+
+//请求更换生涯计划
+message req_change_career_plan_in
+{
+	required uint32 planId =1;//计划id
+}
+message req_change_career_plan_out
+{
+	required uint32 planId =1;//计划id
+}
+
+
+//请求重置生涯计划
+message req_reset_career_daily_plan_in
+{
+	required uint32 planId =1;//计划id
+}
+message req_reset_career_daily_plan_out
+{
+	required uint32 planId =1;//计划id
+}
+
+//请求领取生涯计划奖励
+message req_get_career_plan_reward_in
+{
+	required uint32 planId =1;
+}
+message req_get_career_plan_reward_out
+{
+	required uint32 planId = 1;
+}

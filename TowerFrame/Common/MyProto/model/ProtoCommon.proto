@@ -1,0 +1,361 @@
+package com.sporger.server.proto.model;
+
+//消息类型
+enum MessageType {
+    //登录系统0-49
+    LOGIN_VALIDATE = 1; //验证
+	LOGIN_VALIDATE_RECONNECT = 2;//断线重连验证
+	NOTIFY_BE_KICKED_OFF = 3;//通知被踢掉
+	REQ_BIND_ACCOUNT = 4;//绑定帐号
+    //主城50-80
+	REQ_CITY_INFO =50;//请求主城消息
+	//81-99
+	REQ_ADVERTISEMENT_INFO = 81;//请求广告信息
+    //角色系统100-149
+    CHARACTER_ATTRIBUTE = 100;
+    REQ_WEAR_EQUIP = 101; //申请穿戴装备
+    REQ_UNINSTALL_EQUIP = 102; //申请卸载装备
+    NOTIFY_CHARACTER_CURRENCY = 103; //角色货币更新
+	NOTIFY_CHARACTER_LEVEL_UP = 104;//通知角色升级
+	REQ_CREATE_CHARACTER = 105;//请求创建角色
+	REQ_PLAYER_WECHAT_INFO = 106;//请求微信信息
+
+    //背包系统150-199
+    REQ_EQUIP_ATTRS = 150; //请求装备属性数据
+    REQ_SELL_ITME = 151; //请求出售物品
+    REQ_USE_ITEM = 152; //请求使用物品
+    REQ_EQUIP_START_UP = 153; //请求装备升星
+	REQ_DRAW_REWARD = 154;	//装备抽奖
+
+    //任务系统200-225	
+	REQ_DAILY_MISSION_LIST = 200;//请求任务列表
+	REQ_DAILY_MISSION_REWARD = 201;//请求领取任务奖励
+
+	//剧情引导225 -249
+	REQ_TUTORIAL_INFO= 225;//	请求引导数据
+	REQ_SAVE_TUTORIAL = 226;// 请求保存当前引导步数
+	REQ_SAVE_TRIGGER_TUTORIAL = 227;//请求保存当前触发引导类型
+	REQ_SAVE_CAREER_PLOT= 228;//请求保存生涯剧情id
+	
+    //运动数据系统250-299
+    //日志系统300-349
+    //朋友圈350-399
+	
+	REQ_PLAYER_FRIENDS = 350;//获取玩家好友列表
+	REQ_FRIEND_STATE = 351;//获取好友当前状态
+	REQ_FRIEND_DETAILED = 352;//获取好友详细信息
+	REQ_ATTENTION_PLAYER = 353;//关注玩家
+	NOTIFY_PLAYER_ATTENTION = 354;//通知有玩家关注
+	REQ_JOIN_GAME = 355;	//申请加入对战
+	REQ_VISIT_GAME = 356;	//申请观战 
+	REQ_FRIEND_MESSAGE = 357;//申请离线消息
+	REQ_DELECT_FRIEND_MESSAGE = 358;//删除聊天记录
+	REQ_FRIENDS_RELATION = 359;//申请玩家关联数据
+	REQ_SEARCH_PLAYER = 360;//搜索玩家
+	REQ_PLAYER_BASE_INFO = 361;//获取玩家基础数据
+	REQ_GIVE_PLAYER_THUMBS_UP =362;//请求给某用户点赞
+	REQ_HAVE_GIVE_PLAYER_THUMBS_UP =363;//请求是否给某人点过赞
+	
+
+    //其它
+    REQ_ENTER_MAP = 400; //请求进入地图
+    ENTER_MAP = 401; //主角进入地图
+    PLAYER_GOIN_INSTANCE = 402; //玩家进入副本地图
+    PLAYER_EXIT_INSTANCE = 403; //玩家退出副本地图
+    SYNC_PLAYER_INSTANCE_POS = 404; //同步玩家副本位置
+    REQ_SERVER_TIME = 405; //获取服务器时间
+    HEARTBEAT = 406; //
+
+
+
+    //匹配相关
+    REQ_MATCHING = 407; //请求匹配
+    REQ_CANCEL_MATCHING = 408; //请求取消匹配
+    NOTIFY_MATCHING_RESULT = 409; //通知匹配结果,返回人员信息、房主，成功弹出所有人员信息，并请求玩家确认进入,失败返回错误码
+    REQ_ENTER_PRE_SCENE = 410; //玩家点击确认进入预备场景
+    NOTIFY_PLAYER_READY_ENTER_PRE_SCENE = 411; //通知玩家准备进入预备场景
+    NOTIFY_PERMITE_ENTER_PRE_SCENE = 412; //通知进入预备场景,并分配roomid
+    REQ_SELECT_SCENE = 413; //房主选择比赛场景
+    NOTIFY_CHANGE_SCENE = 414; //通知场景选择更新
+    REQ_READY = 415; //比赛选手准备确认
+    NOTIFY_READY = 416; //通知选手准备确认
+    NOTIFY_CHANGE_ROOM_OWNER = 417; //通知更换房主
+    NOTIFY_START_RACE = 420; //所有人发送ENTER_MAP后,服务器通知开始比赛，包括彩虹跑
+
+
+    NOTIFY_CAREER_RUN_END = 421; //通知生涯跑结束,发玩家奖励
+    REQ_FREE_RUN_END = 422; //请求自由跑结束
+    NOTIFY_PLAYER_REACH = 423; //通知所有客户端某某玩家到达终点
+    NOTIFY_OUTDOOR_PVP_RESULT = 424; //通知竞速赛结束，发各玩家奖励情况
+    NOTIFY_ITEM_PVP_RESULT = 425; //通知道具赛结束，发各玩家奖励情况
+	REQ_PLAYER_LIST = 426;//获取副本玩家列表
+	REQ_NEW_PLAYER_LIST_SIMPLE_INFO = 427;//获取掉线后新加入玩家列表简要信息
+	NOTIFY_CONFIRM_MATCHING_TIME_OUT = 428;//通知所有客户端有人未确认匹配，确认的继续匹配，未确认的不再匹配 
+    NOTIFY_LEVEL_STAR_END = 429; //通知生涯跑结束,发玩家奖励
+	REQ_ENTER_CAREER_MAP = 430;//请求进入生涯地图
+	REQ_FREE_RUN_PLAYER_START_RUN_TIME = 431;//请求自由跑中玩家的开跑时间
+	REQ_FREE_RUN_PAUSE = 432;//自由跑请求暂停
+	REQ_FREE_RUN_RESUME = 433;//自由跑请求恢复跑步
+	REQ_PLAYER_GOIN_INSTANCE = 434; //玩家进入副本地图
+    REQ_SYNC_PLAYER_INSTANCE_POS =  435; //同步玩家副本位置
+	REQ_PLYAER_EXIT_INSTANCE = 436;//玩家退出
+	REQ_FREE_RUN_INFO = 437;//请求同步自由跑中数据
+
+	//聊天相关450-500
+	//实时语音450-460	
+	REQ_REALTIME_VOICE = 450;//请求实时语音
+	REQ_CANCEL_REALTIME_VOICE = 451;//取消实时语音请求
+	REQ_ACCEPT_REALTIME_VOICE = 452;//接受或拒绝实时语音，或者超时
+	REQ_HANGUP_REALTIME_VOICE = 453;//挂断实时语音
+	NOTIFY_REALTIME_VOICE_REQ = 454;//通知玩家实时语音请求
+	NOTIFY_REALTIME_VOICE_REQ_FAILURE = 455;//通知玩家实时语音请求失败
+	NOTIFY_PLAYER_JOIN_REALTIME_VOICE_ROOM = 456;//通知有玩家进入语音房间
+	NOTIFY_CANCEL_REALTIME_VOICE_REQ = 457;//通知对方玩家取消语音请求
+	NOTIFY_PLAYER_LEAVE_REALTIME_VOICE_ROOM = 458;//通知有玩家离开语音房间
+	//语音留言461-470
+	REQ_RUNNER_SEND_VOICE_MESSAGE = 461;//跑者发送语音留言
+	REQ_RUNNER_CONCERNED_VOICE_MESSAGE_LIST = 462;//获取关注的跑者语音留言列表
+	REQ_FANS_SEND_VOICE_MESSAGE=463;//粉丝向跑者发送语音留言
+	REQ_FANS_VOICE_MESSAGE_LIST =464;//获取地图语音留言
+	REQ_MAP_VOICE_MESSAGE_LIST = 465;//获取地图语音点
+	REQ_HOST_SEND_VOICE_MESSAGE= 466;//主持人发送语音留言
+	
+
+    //秘境寻宝 501-550
+	
+    REQ_ENTER_FAM = 501; //请求进入秘境寻宝活动
+    REQ_ENTER_FAM_MAP = 502; //请求进入秘境寻宝副本地图 
+	REQ_OPEN_TREASURE_BOX = 503;//打开宝箱
+	//REQ_QUERY_TREASURE_EXIST = 504;//查询宝箱是否存在
+	NOTIFY_BOX_AND_ITEM_LIST = 505;//通知宝箱和道具列表
+	NOTIFY_OPEN_TREASURE_BOX = 506;//服务器通知各客户端某宝箱被打开
+	REQ_PICK_OPEN_TREASURE_BOX_ITEM = 507;//请求获得打开宝箱的道具
+	NOTIFY_PICK_OPEN_TREASURE_ITEM = 508;//服务器通知各客户端某道具被拾取
+	REQ_DISCARD_OPEN_TREASURE_BOX_ITEM = 509;//请求丢弃道具
+	NOTIFY_SPAWN_ORDINARY_BOX = 510;//通知刷新普通宝箱
+	NOTIFY_SPAWN_ITEM_AND_BOX = 511;//通知刷新道具和道具宝箱
+ 	NOTIFY_SPAWN_MP_ORDINARY_BOX = 512;//通知刷新普通多人宝箱   
+	NOTIFY_OPEN_MP_ORDINARY_BOX_STAND_POS = 513;//通知普通多人宝箱站位被挖取
+	NOTIFY_RESTORE_MP_ORDINARY_BOX_STAND_POS = 514;//通知普通多人宝箱站位还原
+	
+	
+    REQ_ACTIVITY = 517; //请求活动列表
+	NOTIFY_ACTIVITY_END = 518; //通知活动结束
+    REQ_MAIN_ACTIVITY = 519; //请求主活动列表
+
+	//迷宫 551-600
+	REQ_MAZE_MATCHING = 551;//迷宫匹配
+	NOTIFY_MAZE_MATCHING_RESULT = 552;//返回迷宫匹配结果
+	REQ_MAZE_CANCEL_MATCHING = 553;//取消迷宫匹配
+	NOTIFY_MAZE_WAIT_COUNT_DOWN = 554;//进入场景后等待其它玩家倒计时
+	NOTIFY_MAZE_START_GAME_COUNT_DOWN = 555;//开始迷宫游戏倒计时
+	NOTIFY_MAZE_START_GAME = 556;//开始迷宫游戏
+	NOTIFY_MAZE_PLAYER_NOT_ENOUGH = 557;//通知玩家不足不能开始游戏
+	REQ_MAZE_DESTROY_DOOR = 558;//请求销毁门
+	NOTIFY_MAZE_DESTROY_DOOR = 559;//通知各客户端销毁门
+	NOTIFY_MAZE_SPAWN_DOOR = 560;//通知创建门
+	REQ_ENTER_FINISH_POINT = 562;//请求结束迷宫游戏
+	NOTIFY_FINISH_MAZE_GAME = 563;//通知各客户端游戏结束
+	NOTIFY_MAZE_CHARACTER_ENERGE = 564;//通知人物当前能量值
+	REQ_MAZE_PICK_ENERGE_ITEM = 565;//请求获取场景中能量块
+	NOTIFY_MAZE_SPAWN_ENERGE_ITEM = 566;//通知刷出能量块
+	NOTIFY_MAZE_PICK_ENERGE_ITEM = 567;//通知拾取能量块
+
+	//围观 601-700
+	NOTIFY_WATCH_RACE_FINISHED = 601;//围观结束
+
+
+	
+	//广场 701-800
+	REQ_ENTER_SQUARE_MAP = 701;//请求进入广场地图
+	REQ_HOT_SQUARE_CHAT_GROUP = 702;   //请求热门聊天室
+	REQ_CREATE_SQUARE_CHAT_GROUP = 703;//请求create聊天室
+	NOTIFY_ADVERTISEMENT = 704;//推送公告
+	REQ_ENTER_SQUARE_CHAT_GROUP = 705;//请求进入聊天室
+	NOTIFY_ENTER_SQUARE_CHAT_GROUP = 706;//通知进入聊天室
+	REQ_SQUARE_CHAT_INFO = 707;//发送聊天消息
+	NOTIFY_SQUARE_CHAT_INFO = 708;//聊天消息推送
+	REQ_CLOSE_SQUARE_CHAT_GROUP = 709;//关闭自己创建的聊天室
+	REQ_EXIT_SQUARE_CHAT_GROUP = 710;//退出聊天室
+	NOTIFY_CLOSE_SQUARE_CHAT_GROUP = 711;//推送关闭自己创建的聊天室
+	NOTIFY_EXIT_SQUARE_CHAT_GROUP = 712;//推送退出聊天室
+	REQ_SQUARE_INVITE_FRIEND = 713;//聊天室邀请好友
+	REQ_SQUARE_INVITE_AGREE_FRIEND = 714;//好友同意邀请进入聊天室
+	NOTIFY_SQUARE_INVITE_FRIEND = 715;//通知被邀请的好友
+	NOTIFY_PLAYER_ENTER_SQUARE = 716;//推送其他玩家进入广场
+	
+	
+	REQ_MARATHON = 751;//请求比赛活动列表 
+	REQ_MARATHON_REGISTER_INFO= 752;//请求报名
+	REQ_MARATHON_PAY= 753;//请求支付
+	REQ_MARATHON_PROCEED_LIST = 754;//请求进行中的赛事
+	NOTIFY_HAVE_MARATHON_START = 755;//推送玩家有比赛要开始了
+	
+	
+	
+	//彩虹跑 801-850
+	REQ_RAINBOWRUN_MATCHING = 801;//彩虹跑匹配
+	NOTIFY_RAINBOWRUN_MATCHING_RESULT = 802;//返回彩虹跑匹配结果，成功则开始加载场景
+	REQ_RAINBOWRUN_CANCEL_MATCHING = 803;//取消彩虹跑匹配
+	//通知开始比赛的消息使用NOTIFY_START_RACE
+	REQ_RAINBOWRUN_CHANGE_TRACK = 804;//变换跑道
+	NOTIFY_RAINBOWRUN_CHANGE_TRACK = 805;//通知变换跑道
+	NOTIFY_RAINBOWRUN_CURRENT_INFO = 806;//通知当前比赛信息,比如人物喷涂面积
+	NOTIFY_RAINBOWRUN_GAMEOVER = 807;//通知彩虹跑结束
+	REQ_RAINBOWRUN_READY= 808;//彩虹跑请求确认
+	NOTIFY_RAINBOWRUN_READY = 809;//通知有玩家确认
+	NOTIFY_RAINBOWRUN_LOAD_SCENE = 810;//通知加载场景
+	REQ_INVITE_FRIEND = 811;//邀请好友
+	REQ_AGREE_INVITE = 812;//好友同意
+	NOTIFY_INVITE_FRIEND_ENTER = 813;//通知所有玩家有玩家进入房间
+	REQ_RAINBOWRUN_CREATE_ROOM = 814;//彩虹跑分配房间
+	NOTIFY_HAVE_INVITE_FRIEND = 815;//通知好友收到邀请
+	NOTIFY_ENTER_INVITE_ROOM = 816;//通知进入匹配房间 
+	REQ_SETTING_ROOM = 817;//房主修改房间设置
+	NOTIFY_SETTING_ROOM = 818;//通知所有玩家房主修改房间设置
+	NOTIFY_BACK_INVITE_ROOM = 819;//通知返回匹配房间
+	NOTIFY_TRACK_MAX_COLOR = 820;//通知当前跑道喷涂面积最大的颜色
+	NOTIFY_RAINBOWRUN_MATCHING = 821;//通知房间内所有人房主开始匹配了
+	
+	//马拉松 851-899
+	//通知开始比赛的消息使用NOTIFY_START_RACE
+	NOTIFY_MARATHON_CURENT_INFO = 851;//当前跑步实时信息，比如排名
+	NOTIFY_MARATHON_GAMEOVER = 852;//马拉松结算
+	REQ_ENTER_MARATHON_MAP = 853;//请求进入马拉松比赛
+	REQ_SEND_BULLET_SCREEN = 854;// 请求发送弹幕
+	NOTIFY_MARATHON_PLAYER_ENTER = 855;//马拉松玩家进入 
+	REQ_MARATHON_RECORD = 857;//请求马拉松记录
+	REQ_MARATHON_BASE_RECORD = 858 ;// 请求马拉松基本记录包含玩家个人和记录页数
+	REQ_MARATHON_SEARCH_PLAYER = 859;//搜索马拉松玩家,如果符合转换镜头条件将在返回消息后跳转镜头，进入围观模式
+	REQ_MARATHON_STOP_WATCH_RACE = 860;//自已在跑中停止围观玩家
+	REQ_MARATHON_ENTER_WATCH_RACE_MODE = 861;//进入马拉松围观
+	NOTIFY_MARATHON_WATCHING_PLAYER_INFO = 862;//刷新被围观玩家信息，1秒1次
+	NOTIFY_MARATHON_CHANGE_WATCH_PLAYER = 863;//服务器通知在围观模式中随机切换玩家，一般要在发送被围观玩家离场之前发送，保证围观无缝
+	REQ_MARATHON_WATCH_PLAYER = 864;//请求围观某玩家，主要针对前三名或已知ID的玩家
+	NOTIFY_MARATHON_WATCH_MODE_FINISH = 865;//通知围观结束，关门了，进入结算界面
+	REQ_MARATHON_CURENT_INFO = 866;//请求当前跑步实时信息，比如排名
+	REQ_MARATHON_GAMEOVER =867;//请求马拉松结算
+	REQ_MARATHON_PLAYER_ENTER=868;//马拉松玩家进入
+	REQ_MARATHON_WATCHING_PLAYER_INFO = 869;//刷新被围观玩家信息，1秒1次
+	REQ_MARATHON_WATCH_MODE_FINISH = 870;//通知围观结束，关门了，进入结算界面
+	REQ_MARATHON_INFO = 871;//请求马拉松中的信息
+	REQ_MARATHON_RANK = 872;//请求马拉松排行榜
+	REQ_MARATHON_RANK_REWARD = 873;//请求马拉松排行奖励
+	REQ_MARATHON_HOT_RANK_INFO = 874;//请求马拉松人气排行或粉丝排行
+	REQ_MARATHON_RECOMMEND_RUNNER = 875;//请求马拉松推荐跑者
+	REQ_MARATHON_RANK_REWARD_LIST = 876;//请求得到马拉松排名奖励内容
+	
+	//锦标赛 900-925
+	REQ_MATCH_PROCEED_LIST = 900;//请求锦标赛列表
+	REQ_ENTER_MATCH_MAP = 901;//请求进入锦标赛
+	NOTIFY_CHAMPION_CURENT_INFO = 902;//当前锦标赛实时信息，比如排名,参赛人数、围观人数
+	NOTIFY_CHAMPION_GAMEOVER = 903;//锦标赛结算
+	NOTIFY_HAVE_MATCH_START = 904;//推送玩家有锦标赛要开始了
+	REQ_SEASON_RANK_LIST = 905;//请求巅峰时刻
+	REQ_SEASON_PLAYER_LIST = 906;//请求赛季玩家排名信息
+	NOTIFY_SEASON_START = 907;	 //新赛季开始
+	REQ_SEASON_START = 908;	 //新赛季开始
+	NOTIFY_GRADE_CHANGE= 909;	 //推送段位变化
+	REQ_SEASON_INTEGRAL= 910;	 //请求当前赛季我的积分
+	
+	
+	//生涯运动计划 926-950
+	REQ_PLAYER_CAREER_PLAN_LIST = 926;//请求玩家当前生涯计划列表
+	REQ_PLAYER_CAREER_DAILY_PLAN = 927;//请求玩家生涯每日计划
+	REQ_PLAYER_CAREER_PLAN_RECORD_LIST = 928;//请求生涯计划记录
+	REQ_CHANGE_CAREER_PLAN = 929;//请求更换生涯计划
+	REQ_RESET_CAREER_DAILY_PLAN = 930;//请求重置生涯每日计划
+	REQ_GET_CAREER_PLAN_REWARD = 932;//请求领取生涯计划奖励
+	
+	
+	
+    //邮件 951-960
+	REQ_MAIL_INFO = 951;//请求邮件信息列表
+	REQ_READ_MAIL = 952;//请求读取邮件
+	REQ_GET_MAIL_ITEMS = 953;//请求领取邮件物品
+	REQ_DELETE_MAIL = 954;//请求删除邮件
+	NOTIFY_NEW_MAIL = 955;//通知有新的邮件
+	
+
+
+    LOCATION = 999; //位置
+	REQ_CHARACTER_STATUS = 1000;//上报人物状态 服务器不返回
+	NOTIFY_CHARACTER_STATUS = 1001;//服务器通知人物状态
+	REQ_MAZE_CHARACTER_STATUS = 1002;//迷宫上报人物状态 服务器不返回
+	REQ_CITY_CHARACTER_STATUS = 1003;//广场上报人物状态 服务器不返回
+	REQ_RAINBOW_RUN_CHARACTER_STATUS = 1004;//彩虹跑上报人物状态 服务器不返回
+
+	//小游戏 2000-2100
+	REQ_INTERACTION_RESULT = 2000;//请求结算
+	REQ_INTERACTION_RANK = 2001;  //助威 排行榜
+	REQ_INTERACTION = 2002;  //请求进入小游戏
+	REQ_INTERACTION_SPECIFY_PLAYER = 2003; //围观指定玩家，并进入小游戏
+	
+	//助力 2101-2150
+	REQ_CHEER_LIST = 2101;//请求助力列表
+	REQ_GET_CHEER_GOODS = 2102;//请求领取助力奖励
+	REQ_DELETE_CHEER = 2103;//请求删除助力
+	NOTIFY_CHEER_REMIND = 2104;//通知助力提示
+	REQ_OTHER_CHEER_LIST = 2105;//请求其他玩家助力列表
+	NOTIFY_MARATHON_CHEER_PROGRESS = 2106;//通知马拉松中玩家助力进度
+	REQ_PLAYER_CHEER_SHARE_INFO = 2107;//请求某个玩家的助力分享信息
+	REQ_PLAYER_CHEER_REWARD_INFO = 2108;//请求加油奖励
+	REQ_CONVERT_CHEER_REWARD =2109;//请求兑换奖励
+	REQ_CONFIRM_CONVERT_CHEER_REWARD =2110;//确认兑换
+
+
+	RUN_REPORT = 3000; //跑完的报告
+    REQ_RUN_BASE_INFO = 3001; //获取运动记录基本情况
+    REQ_PULL_RUN_RECORD = 3002; //获取运动记录
+    REQ_RUN_BEST_RECORD_LIST = 3003; //获取最好记录列表
+    REQ_RUN_RECORD_DETAIL = 3004; //获取运动记录详细情况
+	NOTIFY_SPORGER_CHANGE = 3005;//通知健康指数变化
+	REQ_WARM_BODY_FINISH = 3006;//热身完成上报
+	NOTIFY_RUN_REPORT = 3007;//跑步结束通知运动数据
+
+	//系统 通用
+
+	//通用奖励物品
+	NOTIFY_GET_REWARD = 5000;//通知获得奖励
+	NOTIFY_GM_LEVELUP = 5001;//通知通关
+	NOTIFY_BULLET_SCREEN_TEXT = 5200;//弹幕
+
+	//红点提示
+	REQ_REMIND= 5100;//请求红点
+	NOTIFY_REMIND = 5101;//通知红点
+	NOTIFY_REMIND_LIST = 5102;//通知红点
+	
+	//体游币兑换
+	REQ_CONVERT_COIN = 5300;//请求兑换体游币
+	
+	
+    REQ_GM_COMMAND = 10000; //GM指令
+}
+
+//玩家当前状态
+enum PlayerState{
+    OFFLINE = 0;//离线
+	LEISURE = 1;//空闲状态
+	SPORTS = 2;	//比赛状态
+}
+
+//关注状态 1已关注 2被关注 3互相关注 4陌生人
+enum AttentionState{
+	CONCERNED = 0;	//已关注
+	BECONCERNED = 1;//被关注
+	MUTUALCONCERNED = 2;//互相关注
+	STRANGER = 3;	//陌生人
+}
+
+//玩家需要同步的状态
+enum CharacterState
+{
+	WALKING = 0;//行走
+	DIGGING = 1;//挖掘
+}
+
+//平台类型
+enum PBPlatformType
+{
+	WeChat = 1;//微信
+}

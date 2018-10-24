@@ -1,0 +1,6 @@
+<BgmlibraryTable>
+  <IData id="1" bgm="Audio\BGM\champion.mp3" />
+  <IData id="2" bgm="Audio\BGM\novera.mp3" />
+  <IData id="3" bgm="Audio\BGM\iHateMyselfForLovingYou.mp3" />
+  <IData id="4" bgm="Audio\BGM\nomusic.mp3" />
+</BgmlibraryTable>
